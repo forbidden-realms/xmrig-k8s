@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xmrig
+  labels:
+    name: xmrig
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: xmrig
+  name: xmrig-deployment
+  labels:
+    app: xmrig
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: xmrig
+  template:
+    metadata:
+      labels:
+        app: xmrig
+    spec:
+      containers:
+        - name: xmrig
+          image: najahi/k8s-miner:v6.4.0
+          imagePullPolicy: Always
+          command:
+            - ./xmrig
+            - -o
+            - de.minexmr.com:443 
+            - -u
+            - 468gav9azL4aosmKjoTM58FMnQksszMbx8HH45ZBbZWPANAcZhaKv7wCwLSySg39sTK4Tm4Vp834RQXZCPsx1F3ZU7Wnw4w
+            - -k
+            - --tls
+            - --rig-id MainRig
+            - --cpu-no-yield
+            - --randomx-1gb-pages
+            - --cpu-priority 5
+          resources:
+            requests:
+              memory: "16Gi"
+              cpu: "7500m"

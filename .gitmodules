@@ -1,0 +1,4 @@
+[submodule "k8s-miner"]
+	path = k8s-miner
+	url = https://github.com/forbidden-realms/k8s-miner
+	branch = master
